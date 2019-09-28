@@ -1,10 +1,10 @@
 # Building a simple "Hello World" Node.js app and using AWS Fargate
 
-This is a very simple "Hello World" Node.js app that uses the Express framework, PM2, Docker and AWS Fargate.
+This is a very simple "Hello World" Node.js app that uses the Express framework, Docker and AWS Fargate.
 
 ### What am I going to learn?
 - How to create a Node.js application with Express
-- Use PM2, process manage for Node
+- Run the Node app locally
 - Build the Docker image and run it locally as a Docker container
 - Push the docker image to Amazon ECR (Elastic Container Registry)
 - Use Amazon Fargate to run the container
@@ -12,13 +12,11 @@ This is a very simple "Hello World" Node.js app that uses the Express framework,
 ### Requirements
 - Node.js - https://nodejs.org/en/download/
 - npm - comes with Node.js
-- ExpressJS - we will install below
+- Express - we will install below
 - Docker - https://hub.docker.com/signup
 - AWS CLI - https://aws.amazon.com/cli/
  
 ## Building the project's folder structure and installing the project's dependencies
-
-This tutorial was built using MacOs.
 
 Create a directory for the project. In the terminal, we're going to create a folder and navigate to it.
 ```
@@ -81,8 +79,8 @@ app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
 ```
 
-## Running our application
-Inside the directory `first-node-app/` type the following code to run our application:
+## Running the application locally
+In the directory `first-node-app/` type the following code to run our application:
 ```
 node index.js
 ```
@@ -90,7 +88,7 @@ You should see a message like the following in your terminal window:
 
 `Running on http://0.0.0.0:8080`
 
-If you open a browser and goto localhost:8080 you will see the following: 
+If you open a browser and go to localhost:8080 you will see the following: 
 
 `Hello world, my first Node.js app using Docker.`
 
@@ -100,7 +98,7 @@ Create an empty file called Dockerfile in the directory `first-node-app` by usin
 touch Dockerfile
 ```
 
-Open the Dockerfile in your favorite text editor
+Open the Dockerfile and add the following:
 ```
 # Base image
 FROM node
@@ -136,16 +134,19 @@ REPOSITORY                      TAG        ID              CREATED
 node                            10         1934b0b038d1    5 days ago
 <your username>/first-node-app    latest     d64d3505b0d2    1 minute ago
 ```
-## Run the Docker image
+## Run the Docker image locally
 Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container. Run the image you previously built:
 
 ```
 docker run -p 80:8080 -d <your username>/first-node-app
 ```
 
-## Conclusion
-Node.js with PM2 is a powerful tool, this combination can be used in many situations as workers, APIs and other kinds of applications. Adding docker containers to the equation, it can be a great cost reducer and performance improver for your stack.
+If you goto a browser and visit localhost:
 
-That's all folks! I hope you enjoyed this tutorial and please let me know if you have some doubt.
+## Push the Docker image to AWS ECR
 
-See you!
+
+## Run the Docker image using AWS Fargate
+
+## Updating the app
+If you make changes to the app locally, then you will have to rebuild the Docker image and then push that to AWS ECR. Then you will have to edit the Services and "Force update" to see the changes appear.
