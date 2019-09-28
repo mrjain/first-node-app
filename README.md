@@ -141,7 +141,10 @@ Running your image with -d runs the container in detached mode, leaving the cont
 docker run -p 80:8080 -d <your username>/first-node-app
 ```
 
-If you goto a browser and visit localhost:
+If you open a browser and go to localhost you will see the following: 
+
+`Hello world, my first Node.js app using Docker.`
+
 
 ## Push the Docker image to AWS ECR
 

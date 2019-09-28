@@ -13,6 +13,6 @@ RUN npm install
 # Bundle app source
 COPY . .
 
-# Port mapped to the docker daemon:
-EXPOSE 8080
+# Port mapped to the docker daemon, this is the port number you type in the browser:
+EXPOSE 80
 CMD ["node", "index.js"]
