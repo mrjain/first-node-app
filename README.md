@@ -135,21 +135,56 @@ node                            10         1934b0b038d1    5 days ago
 <your username>/first-node-app    latest     d64d3505b0d2    1 minute ago
 ```
 ## Run the Docker image locally
-Running your image with -d runs the container in detached mode, leaving the container running in the background. The -p flag redirects a public port to a private port inside the container. Run the image you previously built:
+The -p flag redirects a public port to a private port inside the container. In this case 80 is the port you use on the browser and it will map to port 8080 which the app is running in the container. Running your image with -d runs the container in detached mode, leaving the container running in the background.
 
 ```
 docker run -p 80:8080 -d <your username>/first-node-app
 ```
 
-If you open a browser and go to localhost you will see the following: 
+If you open a browser and go to localhost you will see the following in your browser: 
 
 `Hello world, my first Node.js app using Docker.`
 
 
 ## Push the Docker image to AWS ECR
+Before you can push the Docker image to AWS ECR you need to visit the AWS Management Console and create a new ECR Repository. Once it's created select the repo and click on "View push commands"
 
+In the directory `first-node-app/` type the following:
+```
+$(aws ecr get-login --no-include-email --region ap-south-1)
+```
 
+Build the Docker image:
+```
+docker build -t first-node-app .
+```
+
+After the build completes, tag your image so you can push the image to this repository:
+```
+docker tag first-node-app:latest 1xxxxxxxxx.dkr.ecr.ap-south-1.amazonaws.com/first-node-app:latest
+```
+push this image to your newly created AWS repository:
+```
+docker push 1xxxxxxxxx.dkr.ecr.ap-south-1.amazonaws.com/first-node-app:latest
+```
 ## Run the Docker image using AWS Fargate
+Goto the AWS Management Console and select Amazon ECS and create a new Cluster using the "Get Started" wizard.
+
+For Container definition select Custom and configure it. The image name is the URI:
+```
+1xxxxxxxxx.dkr.ecr.ap-south-1.amazonaws.com/first-node-app
+```
+In port mappings enter 80
+
+Then click Update, then Next. For define your service select Applicatin Load Balancer. Then select Next, then Next again and then select Create
+
+Click on the View Service button. Click on Target Group Name.
+
+Select the load balancer A record name and paste that into the browser and your container should be running.
+
+
+
+
 
 ## Updating the app
 If you make changes to the app locally, then you will have to rebuild the Docker image and then push that to AWS ECR. Then you will have to edit the Services and "Force update" to see the changes appear.
