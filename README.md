@@ -66,7 +66,7 @@ Open the file in your favorite text editor and add the following:
 const express = require('express');
 
 // Constants
-const PORT = 8080;
+const PORT = 2000;
 const HOST = '0.0.0.0';
 
 // App
@@ -116,7 +116,7 @@ RUN npm install
 COPY . .
 
 # Port mapped to the docker daemon:
-EXPOSE 8080
+EXPOSE 80
 CMD ["node", "index.js"]
 ```
 ## Building your Docker image
@@ -138,7 +138,7 @@ node                            10         1934b0b038d1    5 days ago
 The -p flag redirects a public port to a private port inside the container. In this case 80 is the port you use on the browser and it will map to port 8080 which the app is running in the container. Running your image with -d runs the container in detached mode, leaving the container running in the background.
 
 ```
-docker run -p 80:8080 -d <your username>/first-node-app
+docker run -p 80:2000 -d <your username>/first-node-app
 ```
 
 If you open a browser and go to localhost you will see the following in your browser: 
@@ -180,11 +180,10 @@ Then click Update, then Next. For define your service select Applicatin Load Bal
 
 Click on the View Service button. Click on Target Group Name.
 
-Select the load balancer A record name and paste that into the browser and your container should be running.
-
-
-
-
+When all the AWS resources are created goto EC2 Load Balancers and fine the load balancer that was just created and select the DNS name and enter that into a browser window. It should show the following:
+```
+Hello world, my first Node.js app using Docker.
+```
 
 ## Updating the app
 If you make changes to the app locally, then you will have to rebuild the Docker image and then push that to AWS ECR. Then you will have to edit the Services and "Force update" to see the changes appear.
