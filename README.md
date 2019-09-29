@@ -135,7 +135,7 @@ node                            10         1934b0b038d1    5 days ago
 <your username>/first-node-app    latest     d64d3505b0d2    1 minute ago
 ```
 ## Run the Docker image locally
-The -p flag redirects a public port to a private port inside the container. In this case 80 is the port you use on the browser and it will map to port 8080 which the app is running in the container. Running your image with -d runs the container in detached mode, leaving the container running in the background.
+The -p flag redirects a public port to a private port inside the container. In this case 80 is the port you use on the browser and it will map to port 2000 which the app is running in the container. Running your image with -d runs the container in detached mode, leaving the container running in the background.
 
 ```
 docker run -p 80:2000 -d <your username>/first-node-app
