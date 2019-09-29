@@ -86,9 +86,9 @@ node index.js
 ```
 You should see a message like the following in your terminal window:
 
-`Running on http://0.0.0.0:8080`
+`Running on http://0.0.0.0:2000`
 
-If you open a browser and go to localhost:8080 you will see the following: 
+If you open a browser and go to localhost:2000 you will see the following: 
 
 `Hello world, my first Node.js app using Docker.`
 
