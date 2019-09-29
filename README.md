@@ -29,6 +29,11 @@ Now we're going to initiate a new npm project by typing the following command, a
 npm init
 ```
 
+Now we can install Express for our project with the Node Package Manager (npm). We'll need to install the following dependencies by using the following commands:
+```
+npm install express
+```
+
 If we take a look at the directory, we can see a new file named `package.json`. This file will be responsible for the management of our project's dependencies.
 ```
 {
@@ -46,10 +51,6 @@ If we take a look at the directory, we can see a new file named `package.json`. 
     "express": "^4.17.1"
   }
 }
-```
-Now we can install Express for our project with the Node Package Manager (npm). We'll need to install the following dependencies by using the following commands:
-```
-npm install express
 ```
 
 ## Creating the "Hello World" app
