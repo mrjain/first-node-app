@@ -178,9 +178,7 @@ For Container definition select Custom and configure it. The image name is the U
 ```
 In port mappings enter 80
 
-Then click Update, then Next. For define your service select Application Load Balancer. Then select Next, then Next again and then select Create
-
-Click on the View Service button. Click on Target Group Name.
+Then click Update, then Next. For define your service select Application Load Balancer. Then select Next, then Next again and then select Create.
 
 When all the AWS resources are created goto EC2 Load Balancers and fine the load balancer that was just created and select the DNS name and enter that into a browser window. It should show the following:
 
