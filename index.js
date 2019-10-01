@@ -1,16 +1,13 @@
-'use strict';
-
-const express = require('express');
+var express = require('express');
 
 // Constants
-const PORT = 2000;
-const HOST = '0.0.0.0';
+var PORT = 2000;
 
 // App
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello world, my first Node.js app using Docker.\n');
+var app = express();
+app.get('/', function (req, res){
+  res.send('Hello world, Node.js app running on Docker');
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(PORT);
+console.log('Running on http://localhost:' + PORT);

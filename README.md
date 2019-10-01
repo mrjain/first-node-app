@@ -2,18 +2,22 @@
 
 This is a very simple "Hello World" Node.js app that uses the Express framework, Docker and AWS Fargate.
 
-### What am I going to learn?
-- How to create a Node.js application with Express
-- Run the Node app locally
-- Build the Docker image and run it locally as a Docker container
-- Push the docker image to Amazon ECR (Elastic Container Registry)
-- Use Amazon Fargate to run the container
+### What You Will learn?
+- How to create a simple Node.js application with Express
+- Run the Node.js app locally
+- Build the Docker image and run the container locally
+- Push the docker image to Amazon ECR (EC2 Container Registry)
+- Use Amazon Fargate to run the container on AWS
 
-### Requirements
+### Pre-Requirements
+First you will install Node.js and npm, this tutorial assumes you are using the MacOS:
 - Node.js - https://nodejs.org/en/download/
-- npm - comes with Node.js
-- Express - we will install below
+- npm (Node Package Manager) - comes with Node.js
+
+Docker Community Edition (CE) will be installed to build the container and run it locally
 - Docker - https://hub.docker.com/signup
+
+AWS CLI to push the Docker image to AWS ECR
 - AWS CLI - https://aws.amazon.com/cli/
  
 ## Building the project's folder structure and installing the project's dependencies
@@ -62,22 +66,19 @@ touch index.js
 Open the file in your favorite text editor and add the following:
 
 ```
-'use strict';
-
-const express = require('express');
+var express = require('express');
 
 // Constants
-const PORT = 2000;
-const HOST = '0.0.0.0';
+var PORT = 2000;
 
 // App
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello world, my first Node.js app using Docker.');
+var app = express();
+app.get('/', function (req, res){
+  res.send('Hello world, Node.js app running on Docker');
 });
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.listen(PORT);
+console.log('Running on http://localhost:' + PORT);
 ```
 
 ## Running the application locally
@@ -87,11 +88,11 @@ node index.js
 ```
 You should see a message like the following in your terminal window:
 
-`Running on http://0.0.0.0:2000`
+`Running on http://localhost:2000`
 
 If you open a browser and go to localhost:2000 you will see the following: 
 
-`Hello world, my first Node.js app using Docker.`
+`Hello world, Node.js app running on Docker`
 
 ## Creating a Dockerfile
 Create an empty file called Dockerfile in the directory `first-node-app` by using the following command in terminal:
@@ -144,7 +145,7 @@ docker run -p 80:2000 -d <your username>/first-node-app
 
 If you open a browser and go to localhost you will see the following in your browser: 
 
-`Hello world, my first Node.js app using Docker.`
+`Hello world, Node.js app running on Docker`
 
 
 ## Push the Docker image to AWS ECR
@@ -177,14 +178,15 @@ For Container definition select Custom and configure it. The image name is the U
 ```
 In port mappings enter 80
 
-Then click Update, then Next. For define your service select Applicatin Load Balancer. Then select Next, then Next again and then select Create
+Then click Update, then Next. For define your service select Application Load Balancer. Then select Next, then Next again and then select Create
 
 Click on the View Service button. Click on Target Group Name.
 
 When all the AWS resources are created goto EC2 Load Balancers and fine the load balancer that was just created and select the DNS name and enter that into a browser window. It should show the following:
-```
-Hello world, my first Node.js app using Docker.
-```
+
+`
+Hello world, Node.js app running on Docker
+`
 
 ## Updating the app
 If you make changes to the app locally, then you will have to rebuild the Docker image and then push that to AWS ECR. Then you will have to edit the Services and "Force update" to see the changes appear.
